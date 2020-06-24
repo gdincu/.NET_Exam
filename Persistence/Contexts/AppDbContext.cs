@@ -1,6 +1,10 @@
-﻿using Exam.Domain.Models;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using Exam.Domain.Models;
 using Microsoft.EntityFrameworkCore;
-using System.Data.Entity;
+
 
 namespace Persistence.Contexts
 {
