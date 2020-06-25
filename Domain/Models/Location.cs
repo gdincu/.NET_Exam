@@ -11,6 +11,5 @@ namespace Exam.Domain.Models
         public string Name { get; set; }
         public string Description { get; set; }
         public string Link { get; set; }
-        public List<Comment> Comments { get; set; }
     }
 }

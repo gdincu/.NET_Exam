@@ -14,6 +14,6 @@ namespace Exam.Domain.Models
         public string Content { get; set; }
         public Rating Rating{ get; set; }
         //[Required]
-        public int LocationId { get; set; }
+        public int BookingId { get; set; }
     }
 }
