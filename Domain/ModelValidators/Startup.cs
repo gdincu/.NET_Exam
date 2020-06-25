@@ -7,6 +7,12 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Persistence.Contexts;
+using Exam.Domain.ModelValidators;
+using Exam.Domain.Models;
+using FluentValidation;
+using System.Text.Json.Serialization;
+using FluentValidation.AspNetCore;
+using System.Reflection;
 
 namespace Exam
 {
@@ -23,12 +29,27 @@ namespace Exam
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<AppDbContext>(opt => opt.UseSqlServer(Configuration.GetConnectionString("Bookings")));
-            services.AddControllersWithViews();
+            //services.AddControllersWithViews();
+            services
+                .AddControllers()
+                .AddJsonOptions(options =>
+                {
+                    options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
+                    options.JsonSerializerOptions.IgnoreNullValues = true;
+                })
+                .AddFluentValidation(fv => fv.RegisterValidatorsFromAssembly(Assembly.GetExecutingAssembly()));
+
+            services.AddTransient<IValidator<Booking>, BookingValidator>()
+            .AddTransient<IValidator<User>, UserValidator>()
+            .AddTransient<IValidator<Location>, LocationValidator>()
+            .AddTransient<IValidator<Comment>, CommentValidator>();
+
             // In production, the Angular files will be served from this directory
             services.AddSpaStaticFiles(configuration =>
             {
                 configuration.RootPath = "ClientApp/dist";
             });
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

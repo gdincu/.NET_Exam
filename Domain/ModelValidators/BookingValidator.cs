@@ -13,7 +13,9 @@ namespace Exam.Domain.ModelValidators
         public BookingValidator()
         {
             RuleFor(x => x.Id).NotNull();
-            RuleFor(x => x.Added).GreaterThan(DateTime.Now);
+            RuleFor(x => x.Added).LessThanOrEqualTo(DateTime.Now);
+            RuleFor(x => x.Start).GreaterThan(DateTime.Now);
+            RuleFor(x => x.End).GreaterThan(DateTime.Now);
             RuleFor(x => x.State).NotEqual(State.Completed);
         }
     }
