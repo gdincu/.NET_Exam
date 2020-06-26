@@ -23,23 +23,33 @@ namespace Exam.Controllers
 
         // GET: api/Bookings
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Booking>>> GetBookings()
+        public async Task<ActionResult<IEnumerable<Booking>>> GetBookings(DateTimeOffset? from = null, DateTimeOffset? to = null)
         {
-            return await _context.Bookings.ToListAsync();
+            //Filters results by start date / end date
+            IQueryable<Booking> result = _context.Bookings;
+
+            if (from != null && to != null)
+                result = result.Where(f => from <= f.Start && f.End <= to);
+            if (from != null)
+                result = result.Where(f => from <= f.Start);
+            else if (to != null)
+                result = result.Where(f => to <= f.End);
+
+            return await result.Include(e => e.Comments).ToListAsync();
         }
 
         // GET: api/Bookings/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Booking>> GetBooking(long id)
         {
-            var booking = await _context.Bookings.FindAsync(id);
+            var booking = _context.Bookings;
 
             if (booking == null)
             {
                 return NotFound();
             }
 
-            return booking;
+            return await booking.Include(e => e.Comments).SingleOrDefaultAsync(e => e.Id == id);
         }
 
         // PUT: api/Bookings/5
