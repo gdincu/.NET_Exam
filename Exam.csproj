@@ -44,6 +44,17 @@
     <None Include="$(SpaRoot)**" Exclude="$(SpaRoot)node_modules\**" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Remove="ClientApp\src\app\shared\booking.model.ts" />
+    <None Remove="ClientApp\src\app\shared\booking.service.ts" />
+    <None Remove="ClientApp\src\app\shared\comment.model.ts" />
+    <None Remove="ClientApp\src\app\shared\comment.service.ts" />
+    <None Remove="ClientApp\src\app\shared\location.model.ts" />
+    <None Remove="ClientApp\src\app\shared\location.service.ts" />
+    <None Remove="ClientApp\src\app\shared\user.model.ts" />
+    <None Remove="ClientApp\src\app\shared\user.service.ts" />
+  </ItemGroup>
+
   <Target Name="DebugEnsureNodeEnv" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('$(SpaRoot)node_modules') ">
     <!-- Ensure Node.js is installed -->
     <Exec Command="node --version" ContinueOnError="true">
