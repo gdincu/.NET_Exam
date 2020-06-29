@@ -17,4 +17,7 @@ if (environment_1.environment.production) {
 }
 platform_browser_dynamic_1.platformBrowserDynamic(providers).bootstrapModule(app_module_1.AppModule)
     .catch(function (err) { return console.log(err); });
+var platform_server_1 = require("@angular/platform-server");
+Object.defineProperty(exports, "renderModule", { enumerable: true, get: function () { return platform_server_1.renderModule; } });
+Object.defineProperty(exports, "renderModuleFactory", { enumerable: true, get: function () { return platform_server_1.renderModuleFactory; } });
 //# sourceMappingURL=main.js.map
