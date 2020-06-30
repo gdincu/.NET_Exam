@@ -16,6 +16,11 @@ using System.Reflection;
 using Microsoft.OpenApi.Models;
 using System;
 using System.IO;
+using Exam.Persistence.Repositories;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
+using Exam.Persistence;
 
 namespace Exam
 {
@@ -34,7 +39,19 @@ namespace Exam
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<AppDbContext>(opt => opt.UseSqlServer(Configuration.GetConnectionString("Bookings")));
-            //services.AddControllersWithViews();
+            services.AddScoped<IAuthRepository, AuthRepository>();
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+                .AddJwtBearer(options =>
+                {
+                    options.TokenValidationParameters = new TokenValidationParameters
+                    {
+                        ValidateIssuerSigningKey = true,
+                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII
+                        .GetBytes(Configuration.GetSection("AppSettings:Token").Value)),
+                        ValidateIssuer = false,
+                        ValidateAudience = false
+                    };
+                });
 
             services
                 .AddControllers()
@@ -128,14 +145,17 @@ namespace Exam
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
+            app.UseAuthentication();
+
             app.UseCors(MyAllowSpecificOrigins);
+            
             if (!env.IsDevelopment())
             {
                 app.UseSpaStaticFiles();
             }
 
             app.UseRouting();
-
+            app.UseAuthorization();
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(

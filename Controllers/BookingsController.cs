@@ -7,9 +7,11 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Exam.Domain.Models;
 using Persistence.Contexts;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Exam.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class BookingsController : ControllerBase
@@ -39,6 +41,7 @@ namespace Exam.Controllers
         }
 
         // GET: api/Bookings/5
+        [AllowAnonymous]
         [HttpGet("{id}")]
         public async Task<ActionResult<Booking>> GetBooking(long id)
         {
