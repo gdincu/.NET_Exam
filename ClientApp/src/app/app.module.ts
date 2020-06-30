@@ -24,6 +24,7 @@ import { BookingService } from './shared/booking.service';
 import { UserService } from './shared/user.service';
 import { LocationService } from './shared/location.service';
 import { CommentService } from './shared/comment.service';
+import { AuthService } from './shared/auth.service';
 
 @NgModule({
   declarations: [
@@ -65,7 +66,7 @@ import { CommentService } from './shared/comment.service';
       { path: 'comments-update', component: CommentsUpdateComponent }
     ])
   ],
-  providers: [BookingService, CommentService,UserService,LocationService],
+  providers: [BookingService, CommentService, UserService, LocationService, AuthService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

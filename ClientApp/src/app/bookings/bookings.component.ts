@@ -18,7 +18,6 @@ export class BookingsComponent {
   bookingService: BookingService;
   location: Location;
   router: Router;
-  public GET_ALL_URL: string = 'https://localhost:44379/api/bookings';
 
   constructor(http: HttpClient, @Inject('BASE_URL') baseUrl: string) {
     http.get<Booking[]>(baseUrl + 'api/bookings').subscribe(result => {
