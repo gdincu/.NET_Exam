@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Booking } from '../shared/booking.model';
 import { BookingService } from '../shared/booking.service';
@@ -11,31 +11,36 @@ import { Router } from '@angular/router';
   styleUrls: ['./bookings.component.css']
 })
 
-export class BookingsComponent implements OnInit {
+export class BookingsComponent {
   errorMessage: string;
   bookings: Array<Booking>;
   selectedBooking: Booking;
+  bookingService: BookingService;
+  location: Location;
+  router: Router;
   public GET_ALL_URL: string = 'https://localhost:44379/api/bookings';
 
-  constructor(private http: HttpClient, private bookingService: BookingService, private location: Location, private router: Router) { }
+  constructor(http: HttpClient, @Inject('BASE_URL') baseUrl: string) {
+    http.get<Booking[]>(baseUrl + 'api/bookings').subscribe(result => {
+      this.bookings = result;
+    }, error => console.error(error));
+  }
 
   /* Get list of bookings from the server */
   getBookings() {
     this.bookingService.getBookings()
       .subscribe(
-        sarcini => this.bookings = bookings,
+        bookings => this.bookings = bookings,
         error => this.errorMessage = error as any
       );
   }
-
-
 
   /* Delete a booking based on ints id */
   delete(booking: Booking) {
     if (confirm("Are you sure you want to delete booking with id: " + booking.id + "?")) {
       this.bookingService.delete(booking.id)
         .subscribe(_ => {
-          console.log('Sarcina deleted');
+          console.log('Booking deleted');
           this.bookings = this.bookings.filter(s => s.id !== booking.id);
         },
           error => alert('Cannot delete booking - check if it has comments!'));
@@ -44,11 +49,11 @@ export class BookingsComponent implements OnInit {
 
 
 
-  save(userid, locationid, added, start, end, state) {
+  save(userId, locationId, added, start, end, state) {
 
     var tempBooking = new Booking();
-    tempBooking.userid = userid;
-    tempBooking.locationid = locationid;
+    tempBooking.userid = userId;
+    tempBooking.locationid = locationId;
     tempBooking.added = added;
     tempBooking.start = start;
     tempBooking.end = end;
@@ -62,8 +67,5 @@ export class BookingsComponent implements OnInit {
     this.location.back();
   }
 
-  ngOnInit() {
-    this.getBookings();
-  }
 
 }

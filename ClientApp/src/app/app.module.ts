@@ -20,6 +20,10 @@ import { LocationsUpdateComponent } from './locations-update/locations-update.co
 import { CommentsComponent } from './comments/comments.component';
 import { CommentsDetailsComponent } from './comments-details/comments-details.component';
 import { CommentsUpdateComponent } from './comments-update/comments-update.component';
+import { BookingService } from './shared/booking.service';
+import { UserService } from './shared/user.service';
+import { LocationService } from './shared/location.service';
+import { CommentService } from './shared/comment.service';
 
 @NgModule({
   declarations: [
@@ -61,7 +65,7 @@ import { CommentsUpdateComponent } from './comments-update/comments-update.compo
       { path: 'comments-update', component: CommentsUpdateComponent }
     ])
   ],
-  providers: [],
+  providers: [BookingService, CommentService,UserService,LocationService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
