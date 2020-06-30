@@ -6,18 +6,13 @@ import { AuthService } from '../shared/auth.service';
   templateUrl: './nav-menu.component.html',
   styleUrls: ['./nav-menu.component.css']
 })
-export class NavMenuComponent implements OnInit {
+export class NavMenuComponent {
 
   model: any = {};
 
 
-  constructor(private authService: AuthService) {
-
-  }
-
-  ngOnInit() {
-
-  }
+  constructor(private authService: AuthService) {}
+  
 
   login() {
     this.authService.login(this.model).subscribe(next => {

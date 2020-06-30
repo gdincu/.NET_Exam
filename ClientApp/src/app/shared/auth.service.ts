@@ -6,7 +6,7 @@ import 'rxjs/add/operator/map';
 import 'rxjs/Rx';
 
 @Injectable({
-provideln: 'root'
+  providedIn: 'root'
 })
 
 export class AuthService {

@@ -15,6 +15,7 @@ import { UsersComponent } from './users/users.component';
 import { UsersDetailsComponent } from './users-details/users-details.component';
 import { UsersUpdateComponent } from './users-update/users-update.component';
 import { LocationsComponent } from './locations/locations.component';
+import { RegisterComponent } from './register/register.component';
 import { LocationsDetailsComponent } from './locations-details/locations-details.component';
 import { LocationsUpdateComponent } from './locations-update/locations-update.component';
 import { CommentsComponent } from './comments/comments.component';
@@ -43,7 +44,8 @@ import { AuthService } from './shared/auth.service';
     LocationsUpdateComponent,
     CommentsComponent,
     CommentsDetailsComponent,
-    CommentsUpdateComponent
+    CommentsUpdateComponent,
+    RegisterComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -63,7 +65,8 @@ import { AuthService } from './shared/auth.service';
       { path: 'locations-update', component: LocationsUpdateComponent },
       { path: 'comments', component: CommentsComponent },
       { path: 'comments-details', component: CommentsDetailsComponent },
-      { path: 'comments-update', component: CommentsUpdateComponent }
+      { path: 'comments-update', component: CommentsUpdateComponent },
+      { path: 'register', component: RegisterComponent }
     ])
   ],
   providers: [BookingService, CommentService, UserService, LocationService, AuthService],

@@ -24,6 +24,7 @@ namespace Exam.Controllers
         }
 
         // GET: api/Bookings
+        [AllowAnonymous]
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Booking>>> GetBookings(DateTimeOffset? from = null, DateTimeOffset? to = null)
         {
@@ -41,7 +42,6 @@ namespace Exam.Controllers
         }
 
         // GET: api/Bookings/5
-        [AllowAnonymous]
         [HttpGet("{id}")]
         public async Task<ActionResult<Booking>> GetBooking(long id)
         {
