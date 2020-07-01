@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { Booking } from '../shared/booking.model';
 
 @Component({
   selector: 'app-home',
@@ -13,7 +14,7 @@ export class HomeComponent implements OnInit {
   constructor(private http: HttpClient) {}
 
   registerToggle() {
-    this.registerMode = !this.registerMode;
+    this.registerMode = true;
   }
 
   ngOnInit() {
@@ -22,10 +23,14 @@ export class HomeComponent implements OnInit {
 
 
   getValues() {
-    this.http.get('https://localhost:44379/api/bookings').subscribe(response => {
+    this.http.get<Booking[]>('https://localhost:44379/api/bookings').subscribe(response => {
       this.values = response;
     }, error => {
         console.log(error);
     });
+  }
+
+  cancelRegisterMode(registerMode: boolean) {
+    this.registerMode = registerMode;
   }
 }
