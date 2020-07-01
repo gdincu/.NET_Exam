@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { AuthService } from '../shared/auth.service';
+import { AlertifyService } from '../shared/alertify.service';
 
 @Component({
   selector: 'app-nav-menu',
@@ -11,14 +12,14 @@ export class NavMenuComponent {
   model: any = {};
 
 
-  constructor(private authService: AuthService) {}
+  constructor(private authService: AuthService, private alertify: AlertifyService) { }
   
 
   login() {
     this.authService.login(this.model).subscribe(next => {
-      console.log('Logged in successfully!');
+      this.alertify.success('Logged in successfully!');
     }, error => {
-      console.log('Failed to log in!');
+      this.alertify.error('Failed to log in!');
     });
   }
 
@@ -29,7 +30,7 @@ export class NavMenuComponent {
 
   logout() {
     localStorage.removeItem('token');
-    console.log('logged out!');
+    this.alertify.message('Logged out!');
   }
 
 }

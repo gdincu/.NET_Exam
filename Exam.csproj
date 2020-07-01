@@ -48,6 +48,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="ClientApp\src\app\shared\alertify.service.ts" />
     <None Remove="ClientApp\src\app\shared\auth.service.ts" />
     <None Remove="ClientApp\src\app\shared\booking.model.ts" />
     <None Remove="ClientApp\src\app\shared\booking.service.ts" />
@@ -58,6 +59,7 @@
     <None Remove="ClientApp\src\app\shared\location.service.ts" />
     <None Remove="ClientApp\src\app\shared\user.model.ts" />
     <None Remove="ClientApp\src\app\shared\user.service.ts" />
+    <None Remove="ClientApp\src\typings.d.ts" />
   </ItemGroup>
 
   <Target Name="DebugEnsureNodeEnv" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('$(SpaRoot)node_modules') ">
