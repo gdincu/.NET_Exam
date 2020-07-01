@@ -4,6 +4,12 @@ import { FormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 
+import { SocialLoginModule, SocialAuthServiceConfig } from 'angularx-social-login';
+import {
+  GoogleLoginProvider,
+  FacebookLoginProvider,
+  AmazonLoginProvider,
+} from 'angularx-social-login';
 import { AppComponent } from './app.component';
 import { NavMenuComponent } from './nav-menu/nav-menu.component';
 import { HomeComponent } from './home/home.component';
@@ -52,6 +58,7 @@ import { ErrorInterceptorProvider } from './shared/error.interceptor';
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
     HttpClientModule,
     FormsModule,
+    SocialLoginModule,
     RouterModule.forRoot([
       { path: '', component: HomeComponent, pathMatch: 'full' },
       { path: 'fetch-data', component: FetchDataComponent },
@@ -70,7 +77,32 @@ import { ErrorInterceptorProvider } from './shared/error.interceptor';
       { path: 'register', component: RegisterComponent }
     ])
   ],
-  providers: [BookingService, CommentService, UserService, LocationService, AuthService, ErrorInterceptorProvider],
+  providers: [BookingService, CommentService, UserService, LocationService, AuthService, ErrorInterceptorProvider,
+    {
+      provide: 'SocialAuthServiceConfig',
+      useValue: {
+        autoLogin: false,
+        providers: [
+          {
+            id: GoogleLoginProvider.PROVIDER_ID,
+            provider: new GoogleLoginProvider(
+              'clientId'
+            ),
+          },
+          {
+            id: FacebookLoginProvider.PROVIDER_ID,
+            provider: new FacebookLoginProvider('clientId'),
+          },
+          {
+            id: AmazonLoginProvider.PROVIDER_ID,
+            provider: new AmazonLoginProvider(
+              'clientId'
+            ),
+          },
+        ]
+      } as SocialAuthServiceConfig
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
