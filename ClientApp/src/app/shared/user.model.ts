@@ -5,5 +5,7 @@ export class User {
   username: string;
   phone: string;
   email: string;
-  password: string;
+  isAdmin: boolean;
+  PasswordHash: any;
+  PasswordSalt: any;
 }
