@@ -26,6 +26,7 @@ import { UserService } from './shared/user.service';
 import { LocationService } from './shared/location.service';
 import { CommentService } from './shared/comment.service';
 import { AuthService } from './shared/auth.service';
+import { ErrorInterceptorProvider } from './shared/error.interceptor';
 
 @NgModule({
   declarations: [
@@ -69,7 +70,7 @@ import { AuthService } from './shared/auth.service';
       { path: 'register', component: RegisterComponent }
     ])
   ],
-  providers: [BookingService, CommentService, UserService, LocationService, AuthService],
+  providers: [BookingService, CommentService, UserService, LocationService, AuthService, ErrorInterceptorProvider],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

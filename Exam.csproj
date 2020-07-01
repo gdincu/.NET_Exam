@@ -53,6 +53,7 @@
     <None Remove="ClientApp\src\app\shared\booking.service.ts" />
     <None Remove="ClientApp\src\app\shared\comment.model.ts" />
     <None Remove="ClientApp\src\app\shared\comment.service.ts" />
+    <None Remove="ClientApp\src\app\shared\error.interceptor.ts" />
     <None Remove="ClientApp\src\app\shared\location.model.ts" />
     <None Remove="ClientApp\src\app\shared\location.service.ts" />
     <None Remove="ClientApp\src\app\shared\user.model.ts" />
