@@ -13,7 +13,7 @@
 
       <div *ngIf="loggedIn()" class="dropdown">
         <a class="dropdown-toggle" href="#">
-          Welcome {{ authService.decodedToken?.unique_name | titlecase }}
+          Welcome<!--Welcome authService.decodedToken?.unique_name | titlecase -->
         </a>
 
         <div class="dropdown-menu">
@@ -22,22 +22,13 @@
           <a class="dropdown-item" href="#"><i class="fa fa-sign-out"></i>Logout</a>
         </div>
 
-        <div *ngIf="socialLoggedIn()">
-          <!--social login-->
-          <img src="{{ user.photoUrl }}">
-          <div>
-            <h4>{{ user.name }}</h4>
-            <p>{{ user.email }}</p>
-          </div>
-        </div>
-
-
       </div>
 
       <form *ngIf="!loggedIn()" #loginForm="ngForm" class="form-inlin my-2 my-lg-0" (ngSubmit)="login()">
         <input class="form-control mr-sm-2" type="text" name="Username" placeholder="Username" required [(ngModel)]="model.username">
         <input class="form-control mr-sm-2" type="password" name="Password" placeholder="Password" required [(ngModel)]="model.password">
         <button class="btn btn-success my-2 my-sm-0" [disabled]="!loginForm.valid" type="submit">Login</button>
+        <app-social-login></app-social-login>
       </form>
 
     </div>

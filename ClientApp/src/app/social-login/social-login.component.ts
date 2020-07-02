@@ -6,6 +6,8 @@ import { AuthenticationService } from '../shared/auth.service';
 import { AlertifyService } from '../shared/alertify.service';
 import { Router } from '@angular/router';
 import { User } from '../shared/user.model';
+import { HttpClient } from '@angular/common/http';
+import { JwtHelperService } from "@auth0/angular-jwt";
 
 @Component({
   selector: 'app-social-login',
@@ -15,11 +17,14 @@ import { User } from '../shared/user.model';
 export class SocialLoginComponent implements OnInit {
   user: SocialUser;
   private loggedIn: boolean;
+  decodedToken: any;
+  jwtHelper = new JwtHelperService();
 
   constructor(
     private socialAuthService: SocialAuthService,
     private authService: AuthenticationService,
     private alertify: AlertifyService,
+    private http: HttpClient
   ) { }
 
   //Checks if a Google user is already logged in
@@ -30,15 +35,25 @@ export class SocialLoginComponent implements OnInit {
     });
   }
 
-
   signInWithGoogle(): void {
     this.socialAuthService.signIn(GoogleLoginProvider.PROVIDER_ID);
+    let tryLogin = this.socialAuthService.signIn(GoogleLoginProvider.PROVIDER_ID);
+    if (!!tryLogin) {
+      this.alertify.success(this.user.name + ' logged in successfully!');
+      localStorage.setItem('token', this.user.authToken);
+      localStorage.setItem('user', this.user.name);
+      //const user: User = JSON.parse(localStorage.getItem('user'));
+    }
+    else
+      this.alertify.error('Try again!!');
+
     
-    console.log(this.user.firstName);
-    console.log(this.user.authToken);
-    
-      
+    //this.decodedToken = this.jwtHelper.decodeToken(this.user.authToken);
+    //console.log(this.decodedToken);
   }
+
+     
+  
 
   signOut(): void {
     this.socialAuthService.signOut();
