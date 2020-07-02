@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
+import { AuthGuard } from './_guards/auth.guard';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppComponent } from './app.component';
@@ -91,7 +92,7 @@ export function tokenGetter() {
       { path: 'register', component: RegisterComponent }
     ])
   ],
-  providers: [BookingService, CommentService, UserService, LocationService, AuthenticationService, ErrorInterceptorProvider,
+  providers: [BookingService, CommentService, UserService, AuthGuard, LocationService, AuthenticationService, ErrorInterceptorProvider,
     {
       provide: 'SocialAuthServiceConfig',
       useValue: {

@@ -43,7 +43,7 @@ export class NavMenuComponent implements OnInit {
 
   logout() {
     localStorage.removeItem('token');
-    this.socialAuthService.signOut();
+    //this.socialAuthService.signOut();
     this.alertify.message('Logged out!');
   }
 

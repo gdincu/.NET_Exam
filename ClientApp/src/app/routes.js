@@ -7,13 +7,18 @@ var messages_component_1 = require("./messages/messages.component");
 var lists_component_1 = require("./lists/lists.component");
 var users_details_component_1 = require("./users/users-details/users-details.component");
 var admin_panel_component_1 = require("./admin/admin-panel/admin-panel.component");
+var auth_guard_1 = require("./_guards/auth.guard");
 exports.appRoutes = [
     { path: '', component: home_component_1.HomeComponent },
     {
         path: '',
+        runGuardsAndResolvers: 'always',
+        canActivate: [auth_guard_1.AuthGuard],
         children: [
             {
-                path: 'users', component: users_component_1.UsersComponent
+                path: 'users',
+                component: users_component_1.UsersComponent,
+                canActivate: [auth_guard_1.AuthGuard]
             },
             {
                 path: 'users/:id', component: users_details_component_1.UsersDetailsComponent

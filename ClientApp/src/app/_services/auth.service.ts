@@ -44,6 +44,20 @@ export class AuthenticationService  {
     return !!token;
   }
 
+  roleMatch(allowedRoles): boolean {
+    let isMatch = false;
+    const userRoles = this.decodedToken.role as Array<string>;
+    if (userRoles) {
+      allowedRoles.forEach(element => {
+        if (userRoles.includes(element)) {
+          isMatch = true;
+          return;
+        }
+      });
+    }
+    return isMatch;
+  }
+
   /*loginGoogle(idToken: string) {
     return this.http.post(this.baseUrl + 'login', model)
       .pipe(
