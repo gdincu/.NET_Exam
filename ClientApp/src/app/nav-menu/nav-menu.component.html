@@ -21,6 +21,17 @@
           <div class="dropdown-divider"></div>
           <a class="dropdown-item" href="#"><i class="fa fa-sign-out"></i>Logout</a>
         </div>
+
+        <div *ngIf="socialLoggedIn()">
+          <!--social login-->
+          <img src="{{ user.photoUrl }}">
+          <div>
+            <h4>{{ user.name }}</h4>
+            <p>{{ user.email }}</p>
+          </div>
+        </div>
+
+
       </div>
 
       <form *ngIf="!loggedIn()" #loginForm="ngForm" class="form-inlin my-2 my-lg-0" (ngSubmit)="login()">

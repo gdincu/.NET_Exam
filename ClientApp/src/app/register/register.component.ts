@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
 import 'rxjs/Rx';
-import { AuthService } from '../shared/auth.service';
+import { AuthenticationService } from '../shared/auth.service';
 import { AlertifyService } from '../shared/alertify.service';
 
 @Component({
@@ -19,7 +19,7 @@ export class RegisterComponent implements OnInit {
   @Output() cancelRegister = new EventEmitter();
   model: any = {};
 
-  constructor(private http: HttpClient, private authService: AuthService, private alertify: AlertifyService) { }
+  constructor(private http: HttpClient, private authService: AuthenticationService, private alertify: AlertifyService) { }
 
   register() {
     this.authService.register(this.model).subscribe(() => {

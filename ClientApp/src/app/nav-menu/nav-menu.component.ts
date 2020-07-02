@@ -1,18 +1,23 @@
-import { Component } from '@angular/core';
-import { AuthService } from '../shared/auth.service';
+import { Component, OnInit } from '@angular/core';
+import { AuthenticationService  } from '../shared/auth.service';
 import { AlertifyService } from '../shared/alertify.service';
+import { SocialAuthService, SocialUser } from 'angularx-social-login';
 
 @Component({
   selector: 'app-nav-menu',
   templateUrl: './nav-menu.component.html',
   styleUrls: ['./nav-menu.component.css']
 })
-export class NavMenuComponent {
+export class NavMenuComponent implements OnInit {
 
   model: any = {};
+  user: SocialUser;
+  checkLoggedIn: boolean = false;
 
-
-  constructor(public authService: AuthService, private alertify: AlertifyService) { }
+  constructor(
+    public authService: AuthenticationService,
+    private alertify: AlertifyService,
+    private socialAuthService: SocialAuthService) { }
   
 
   login() {
@@ -29,9 +34,25 @@ export class NavMenuComponent {
     return this.authService.loggedIn();
   }
 
+  socialLoggedIn() {
+    this.socialAuthService.authState.subscribe((user) => {
+      this.user = user;
+      return (user != null);
+    });
+  }
+
   logout() {
     localStorage.removeItem('token');
+    this.socialAuthService.signOut();
     this.alertify.message('Logged out!');
+  }
+
+  
+  ngOnInit() {
+    this.socialAuthService.authState.subscribe((user) => {
+      this.user = user;
+      this.checkLoggedIn = (user != null);
+    });
   }
 
 }

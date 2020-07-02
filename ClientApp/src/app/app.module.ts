@@ -4,12 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 
-import { SocialLoginModule, SocialAuthServiceConfig } from 'angularx-social-login';
-import {
-  GoogleLoginProvider,
-  FacebookLoginProvider,
-  AmazonLoginProvider,
-} from 'angularx-social-login';
+
 import { AppComponent } from './app.component';
 import { NavMenuComponent } from './nav-menu/nav-menu.component';
 import { HomeComponent } from './home/home.component';
@@ -31,8 +26,14 @@ import { BookingService } from './shared/booking.service';
 import { UserService } from './shared/user.service';
 import { LocationService } from './shared/location.service';
 import { CommentService } from './shared/comment.service';
-import { AuthService } from './shared/auth.service';
+import { AuthenticationService } from './shared/auth.service';
 import { ErrorInterceptorProvider } from './shared/error.interceptor';
+import { SocialLoginComponent } from './social-login/social-login.component';
+import { SocialLoginModule, SocialAuthServiceConfig, GoogleLoginProvider  } from 'angularx-social-login';
+
+export function tokenGetter() {
+  return localStorage.getItem('token');
+}
 
 @NgModule({
   declarations: [
@@ -52,7 +53,8 @@ import { ErrorInterceptorProvider } from './shared/error.interceptor';
     CommentsComponent,
     CommentsDetailsComponent,
     CommentsUpdateComponent,
-    RegisterComponent
+    RegisterComponent,
+    SocialLoginComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -77,7 +79,7 @@ import { ErrorInterceptorProvider } from './shared/error.interceptor';
       { path: 'register', component: RegisterComponent }
     ])
   ],
-  providers: [BookingService, CommentService, UserService, LocationService, AuthService, ErrorInterceptorProvider,
+  providers: [BookingService, CommentService, UserService, LocationService, AuthenticationService, ErrorInterceptorProvider,
     {
       provide: 'SocialAuthServiceConfig',
       useValue: {
@@ -85,20 +87,8 @@ import { ErrorInterceptorProvider } from './shared/error.interceptor';
         providers: [
           {
             id: GoogleLoginProvider.PROVIDER_ID,
-            provider: new GoogleLoginProvider(
-              'clientId'
-            ),
-          },
-          {
-            id: FacebookLoginProvider.PROVIDER_ID,
-            provider: new FacebookLoginProvider('clientId'),
-          },
-          {
-            id: AmazonLoginProvider.PROVIDER_ID,
-            provider: new AmazonLoginProvider(
-              'clientId'
-            ),
-          },
+            provider: new GoogleLoginProvider('371764760981-solppqt2mm4q4lv2di4p8b1nqe5et17i.apps.googleusercontent.com'),
+          }
         ]
       } as SocialAuthServiceConfig
     }
