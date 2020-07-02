@@ -1,36 +1,45 @@
 <header>
-  <nav
-    class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light border-bottom box-shadow mb-3"
-  >
-    <div class="container">
-      <a class="navbar-brand" [routerLink]="['/']">EVCharge</a>
-      <a class="nav-link text-dark" [routerLink]="['/']">Home</a>
-      <a class="nav-link text-dark" [routerLink]="['/bookings']">Bookings</a>
-      <a class="nav-link text-dark" [routerLink]="['/users']">Users</a>
-      <a class="nav-link text-dark" [routerLink]="['/locations']">Locations</a>
-      <a class="nav-link text-dark" [routerLink]="['/comments']">Comments</a>
-      <a class="nav-link text-dark" *ngIf="loggedIn()" (click)="logout()">Log Out</a>
+  <nav class="navbar navbar-expand-sm navbar-dark bg-dark navbar-toggleable-sm">
+    <a class="navbar-brand" [routerLink]="['/']">EVCharge</a>
 
-      <div *ngIf="loggedIn()" class="dropdown">
-        <a class="dropdown-toggle" href="#">
-          Welcome<!--Welcome authService.decodedToken?.unique_name | titlecase -->
-        </a>
+    <div class="btn-group" dropdown *ngIf="loggedIn()">
 
-        <div class="dropdown-menu">
-          <a class="dropdown-item" href="#"><i class="fa fa-user"></i>Edit Profile</a>
-          <div class="dropdown-divider"></div>
-          <a class="dropdown-item" href="#"><i class="fa fa-sign-out"></i>Logout</a>
+      <button id="button-animated" dropdownToggle type="button" class="btn btn-dark dropdown-toggle"
+              aria-controls="dropdown-animated">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <ul class="dropdown-menu mr-auto" id="dropdown-animated" *dropdownMenu>
+
+        <div class="mr-auto">
+          <li role="menuitem" class="mr-auto">
+            <a class="nav-link text-dark" [routerLink]="['/']">Home</a>
+          </li>
+          <li role="menuitem">
+            <a class="nav-link text-dark" [routerLink]="['/bookings']">Bookings</a>
+          </li>
+          <li role="menuitem">
+            <a class="nav-link text-dark" [routerLink]="['/users']">Users</a>
+          </li>
+          <li role="menuitem">
+            <a class="nav-link text-dark" [routerLink]="['/locations']">Locations</a>
+          </li>
+          <li role="menuitem">
+            <a class="nav-link text-dark" [routerLink]="['/comments']">Comments</a>
+          </li>
+          <li role="menuitem">
+            <a class="nav-link text-dark" [routerLink]="['/comments']" (click)="logout()">Logout</a>
+          </li>
         </div>
-
-      </div>
-
-      <form *ngIf="!loggedIn()" #loginForm="ngForm" class="form-inlin my-2 my-lg-0" (ngSubmit)="login()">
-        <input class="form-control mr-sm-2" type="text" name="Username" placeholder="Username" required [(ngModel)]="model.username">
-        <input class="form-control mr-sm-2" type="password" name="Password" placeholder="Password" required [(ngModel)]="model.password">
-        <button class="btn btn-success my-2 my-sm-0" [disabled]="!loginForm.valid" type="submit">Login</button>
-        <app-social-login></app-social-login>
-      </form>
-
+      </ul>
     </div>
+
+    <form #loginForm="ngForm" class="form-inline text-right my-2 my-lg-0" *ngIf="!loggedIn()" (ngSubmit)="login()">
+      <input class="form-control mr-sm-2" type="text" name="Username" placeholder="Username" required [(ngModel)]="model.username">
+      <input class="form-control mr-sm-2" type="password" name="Password" placeholder="Password" required [(ngModel)]="model.password">
+      <button class="btn btn-success mr-sm-2" [disabled]="!loginForm.valid" type="submit">Login</button>
+      <app-social-login></app-social-login>
+    </form>
+
   </nav>
 </header>

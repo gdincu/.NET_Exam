@@ -4,7 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 
-
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppComponent } from './app.component';
 import { NavMenuComponent } from './nav-menu/nav-menu.component';
 import { HomeComponent } from './home/home.component';
@@ -29,7 +29,8 @@ import { CommentService } from './shared/comment.service';
 import { AuthenticationService } from './shared/auth.service';
 import { ErrorInterceptorProvider } from './shared/error.interceptor';
 import { SocialLoginComponent } from './social-login/social-login.component';
-import { SocialLoginModule, SocialAuthServiceConfig, GoogleLoginProvider  } from 'angularx-social-login';
+import { SocialLoginModule, SocialAuthServiceConfig, GoogleLoginProvider } from 'angularx-social-login';
+import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 
 export function tokenGetter() {
   return localStorage.getItem('token');
@@ -60,6 +61,8 @@ export function tokenGetter() {
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
     HttpClientModule,
     FormsModule,
+    BrowserAnimationsModule,
+    BsDropdownModule.forRoot(), 
     SocialLoginModule,
     RouterModule.forRoot([
       { path: '', component: HomeComponent, pathMatch: 'full' },
