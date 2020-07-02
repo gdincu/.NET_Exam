@@ -9,28 +9,35 @@ import { AppComponent } from './app.component';
 import { NavMenuComponent } from './nav-menu/nav-menu.component';
 import { HomeComponent } from './home/home.component';
 import { FetchDataComponent } from './fetch-data/fetch-data.component';
-import { BookingsComponent } from './bookings/bookings.component';
-import { BookingsUpdateComponent } from './bookings-update/bookings-update.component';
-import { BookingsDetailsComponent } from './bookings-details/bookings-details.component';
-import { UsersComponent } from './users/users.component';
-import { UsersDetailsComponent } from './users-details/users-details.component';
-import { UsersUpdateComponent } from './users-update/users-update.component';
-import { LocationsComponent } from './locations/locations.component';
 import { RegisterComponent } from './register/register.component';
-import { LocationsDetailsComponent } from './locations-details/locations-details.component';
-import { LocationsUpdateComponent } from './locations-update/locations-update.component';
-import { CommentsComponent } from './comments/comments.component';
-import { CommentsDetailsComponent } from './comments-details/comments-details.component';
-import { CommentsUpdateComponent } from './comments-update/comments-update.component';
-import { BookingService } from './shared/booking.service';
-import { UserService } from './shared/user.service';
-import { LocationService } from './shared/location.service';
-import { CommentService } from './shared/comment.service';
-import { AuthenticationService } from './shared/auth.service';
-import { ErrorInterceptorProvider } from './shared/error.interceptor';
+
+import { BookingsComponent } from './bookings/bookings/bookings.component';
+import { BookingsUpdateComponent } from './bookings/bookings-update/bookings-update.component';
+import { BookingsDetailsComponent } from './bookings/bookings-details/bookings-details.component';
+
+import { UsersComponent } from './users/users/users.component';
+import { UsersDetailsComponent } from './users/users-details/users-details.component';
+import { UsersUpdateComponent } from './users/users-update/users-update.component';
+
+import { LocationsComponent } from './locations/locations/locations.component';
+import { LocationsDetailsComponent } from './locations/locations-details/locations-details.component';
+import { LocationsUpdateComponent } from './locations/locations-update/locations-update.component';
+
+import { CommentsComponent } from './comments/comments/comments.component';
+import { CommentsDetailsComponent } from './comments/comments-details/comments-details.component';
+import { CommentsUpdateComponent } from './comments/comments-update/comments-update.component';
+
+import { BookingService } from './_services/booking.service';
+import { UserService } from './_services/user.service';
+import { LocationService } from './_services/location.service';
+import { CommentService } from './_services/comment.service';
+import { AuthenticationService } from './_services/auth.service';
+import { ErrorInterceptorProvider } from './_services/error.interceptor';
 import { SocialLoginComponent } from './social-login/social-login.component';
 import { SocialLoginModule, SocialAuthServiceConfig, GoogleLoginProvider } from 'angularx-social-login';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
+import { ListsComponent } from './lists/lists.component';
+import { MessagesComponent } from './messages/messages.component';
 
 export function tokenGetter() {
   return localStorage.getItem('token');
@@ -55,14 +62,16 @@ export function tokenGetter() {
     CommentsDetailsComponent,
     CommentsUpdateComponent,
     RegisterComponent,
-    SocialLoginComponent
+    SocialLoginComponent,
+    ListsComponent,
+    MessagesComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
     HttpClientModule,
     FormsModule,
     BrowserAnimationsModule,
-    BsDropdownModule.forRoot(), 
+    BsDropdownModule.forRoot(),
     SocialLoginModule,
     RouterModule.forRoot([
       { path: '', component: HomeComponent, pathMatch: 'full' },

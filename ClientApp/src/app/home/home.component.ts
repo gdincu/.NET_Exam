@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Booking } from '../shared/booking.model';
+import { Booking } from '../_shared/booking.model';
 
 @Component({
   selector: 'app-home',

@@ -2,10 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { SocialAuthService } from 'angularx-social-login';
 import { SocialUser } from 'angularx-social-login';
 import { GoogleLoginProvider } from 'angularx-social-login';
-import { AuthenticationService } from '../shared/auth.service';
-import { AlertifyService } from '../shared/alertify.service';
+import { AuthenticationService } from '../_services/auth.service';
+import { AlertifyService } from '../_services/alertify.service';
 import { Router } from '@angular/router';
-import { User } from '../shared/user.model';
+import { User } from '../_shared/user.model';
 import { HttpClient } from '@angular/common/http';
 import { JwtHelperService } from "@auth0/angular-jwt";
 
@@ -47,13 +47,13 @@ export class SocialLoginComponent implements OnInit {
     else
       this.alertify.error('Try again!!');
 
-    
+
     //this.decodedToken = this.jwtHelper.decodeToken(this.user.authToken);
     //console.log(this.decodedToken);
   }
 
-     
-  
+
+
 
   signOut(): void {
     this.socialAuthService.signOut();

@@ -3,8 +3,8 @@ import { HttpClient } from '@angular/common/http';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
 import 'rxjs/Rx';
-import { AuthenticationService } from '../shared/auth.service';
-import { AlertifyService } from '../shared/alertify.service';
+import { AuthenticationService } from '../_services/auth.service';
+import { AlertifyService } from '../_services/alertify.service';
 
 @Component({
   selector: 'app-register',
@@ -30,7 +30,7 @@ export class RegisterComponent implements OnInit {
   }
 
   ngOnInit() {
-    
+
   }
 
   cancel() {

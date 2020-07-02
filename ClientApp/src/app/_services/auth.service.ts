@@ -5,7 +5,7 @@ import { JwtHelperService } from "@auth0/angular-jwt";
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
 import 'rxjs/Rx';
-import { User } from './user.model';
+import { User } from '../_shared/user.model';
 
 @Injectable({
   providedIn: 'root'

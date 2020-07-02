@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
-import { Location } from "./location.model";
+import { Location } from '../_shared/location.model';
 import { map } from "rxjs/operators";
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';

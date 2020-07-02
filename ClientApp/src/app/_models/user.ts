@@ -1,4 +1,4 @@
-export class User {
+export interface User {
   id: number;
   name: string;
   surname: string;
@@ -8,4 +8,5 @@ export class User {
   isAdmin: boolean;
   PasswordHash: any;
   PasswordSalt: any;
+  roles?: string[];
 }

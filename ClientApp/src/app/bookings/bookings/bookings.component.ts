@@ -1,7 +1,7 @@
 import { Component, Inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Booking } from '../shared/booking.model';
-import { BookingService } from '../shared/booking.service';
+import { Booking } from '../../_shared/booking.model';
+import { BookingService } from '../../_services/booking.service';
 import { Location } from '@angular/common';
 import { Router } from '@angular/router';
 

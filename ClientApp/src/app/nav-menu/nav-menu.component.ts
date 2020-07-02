@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthenticationService  } from '../shared/auth.service';
-import { AlertifyService } from '../shared/alertify.service';
+import { AuthenticationService  } from '../_services/auth.service';
+import { AlertifyService } from '../_services/alertify.service';
 import { SocialAuthService, SocialUser } from 'angularx-social-login';
 
 @Component({
@@ -18,7 +18,7 @@ export class NavMenuComponent implements OnInit {
     public authService: AuthenticationService,
     private alertify: AlertifyService,
     private socialAuthService: SocialAuthService) { }
-  
+
 
   login() {
     this.authService.login(this.model).subscribe(next => {
@@ -47,7 +47,7 @@ export class NavMenuComponent implements OnInit {
     this.alertify.message('Logged out!');
   }
 
-  
+
   ngOnInit() {
     this.socialAuthService.authState.subscribe((user) => {
       this.user = user;

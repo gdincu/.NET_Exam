@@ -48,6 +48,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="ClientApp\src\app\routes.ts" />
     <None Remove="ClientApp\src\app\shared\alertify.service.ts" />
     <None Remove="ClientApp\src\app\shared\auth.service.ts" />
     <None Remove="ClientApp\src\app\shared\booking.model.ts" />

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
-import { Booking } from "./booking.model";
+import { Booking } from '../_shared/booking.model';
 import { map } from "rxjs/operators";
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
