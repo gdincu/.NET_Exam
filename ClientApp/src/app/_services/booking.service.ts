@@ -42,4 +42,9 @@ export class BookingService {
       .delete(url);
   }
 
+  getBooking(id: number): Observable<Booking> {
+    return this.getBookings()
+      .map(bookings => bookings.find(booking => booking.id === id));
+  }
+
 }

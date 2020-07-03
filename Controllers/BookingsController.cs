@@ -42,6 +42,7 @@ namespace Exam.Controllers
         }
 
         // GET: api/Bookings/5
+        [AllowAnonymous]
         [HttpGet("{id}")]
         public async Task<ActionResult<Booking>> GetBooking(long id)
         {
@@ -58,6 +59,7 @@ namespace Exam.Controllers
         // PUT: api/Bookings/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
+        [AllowAnonymous]
         [HttpPut("{id}")]
         public async Task<IActionResult> PutBooking(long id, Booking booking)
         {
@@ -90,6 +92,7 @@ namespace Exam.Controllers
         // POST: api/Bookings
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
+        [AllowAnonymous]
         [HttpPost]
         public async Task<ActionResult<Booking>> PostBooking(Booking booking)
         {
@@ -100,6 +103,7 @@ namespace Exam.Controllers
         }
 
         // DELETE: api/Bookings/5
+        [AllowAnonymous]
         [HttpDelete("{id}")]
         public async Task<ActionResult<Booking>> DeleteBooking(long id)
         {

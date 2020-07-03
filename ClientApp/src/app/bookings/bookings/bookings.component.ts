@@ -1,4 +1,4 @@
-import { Component, Inject } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Booking } from '../../_shared/booking.model';
 import { BookingService } from '../../_services/booking.service';
@@ -11,18 +11,22 @@ import { Router } from '@angular/router';
   styleUrls: ['./bookings.component.css']
 })
 
-export class BookingsComponent {
+export class BookingsComponent implements OnInit {
   errorMessage: string;
   bookings: Array<Booking>;
   selectedBooking: Booking;
-  bookingService: BookingService;
-  location: Location;
-  router: Router;
+  public GET_ALL_URL: string = 'https://localhost:44379/api/bookings';
 
-  constructor(http: HttpClient, @Inject('BASE_URL') baseUrl: string) {
+  /*constructor(http: HttpClient, @Inject('BASE_URL') baseUrl: string) {
     http.get<Booking[]>(baseUrl + 'api/bookings').subscribe(result => {
       this.bookings = result;
     }, error => console.error(error));
+  }*/
+
+  constructor(private http: HttpClient, private bookingService: BookingService, private location: Location, private router: Router) { }
+
+  ngOnInit() {
+    this.getBookings();
   }
 
   /* Get list of bookings from the server */
@@ -45,8 +49,6 @@ export class BookingsComponent {
           error => alert('Cannot delete booking - check if it has comments!'));
     }
   }
-
-
 
   save(userId, locationId, added, start, end, state) {
 

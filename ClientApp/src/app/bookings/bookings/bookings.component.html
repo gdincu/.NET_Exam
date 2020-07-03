@@ -1,46 +1,29 @@
-<h1 id="tableLabel">Booking List</h1>
+<h1>Bookings Made</h1>
 
 <p *ngIf="!bookings"><em>Loading...</em></p>
 
-<table class='table table-striped' aria-labelledby="tableLabel" *ngIf="bookings">
-  <thead>
-    <tr>
-      <th class="w-10">UserId</th>
-      <th class="w-10">LocationId</th>
-      <th>Added</th>
-      <th>Start</th>
-      <th>End</th>
-      <th>State</th>
-      <th># of comments</th>
-      <th colspan="3">Operations</th>
-    </tr>
-  </thead>
-  <tbody>
+<div class="container">
+  <div class="row justify-content-lg-center">
 
-    <tr *ngFor="let booking of bookings">
-      <td>{{ booking.userId }}</td>
-      <td>{{ booking.locationId }}</td>
-      <td>{{ booking.added }}</td>
-      <td>{{ booking.start }}</td>
-      <td>{{ booking.end }}</td>
-      <td>{{ booking.state }}</td>
-      <td>{{ booking.comments.length }}</td>
-      <td><a class="btn btn-info" href='/bookings-details?bookingid={{ booking.id }}'>Details</a></td>
-      <td><a class="btn btn-info" href='/bookings-update?bookingid={{ booking.id }}'>Update</a></td>
-      <td><button class="btn btn-danger" (click)="delete(booking);$event.stopPropagation()">Delete</button></td>
-    </tr>
+    <div class="card text-white bg-info col col-sm-3 m-3" style="max-width: 30rem;" *ngFor="let booking of bookings">
+      <div class="card-header">
+        <div class="row">
+          <a class="col btn btn-success .btn-sm" href='/bookings-details?bookingid={{ booking.id }}'>Details</a>
+          <a class="col btn btn-warning .btn-sm" href='/bookings-update?bookingid={{ booking.id }}'>Update</a>
+          <button class="col btn btn-danger .btn-sm" (click)="delete(booking);$event.stopPropagation()">Delete</button>
+        </div>
+      </div>
+      <div class="card-body">
+        <h4 class="card-title">Booking {{booking.id}} Details</h4>
+        <p class="card-text">UserId: {{booking.userId}}</p>
+        <p class="card-text">LocationId: {{booking.locationId}}</p>
+        <p class="card-text">Added: {{booking.added}}</p>
+        <p class="card-text">Start: {{booking.start}}</p>
+        <p class="card-text">End: {{booking.end}}</p>
+        <p class="card-text">State: {{booking.state}}</p>
+        <p class="card-text"># of comments: {{booking.comments.length}}</p>
+      </div>
+    </div>
 
-    <tr>
-      <td><input #userId placeholder="UserId"></td>
-      <td><input #locationId placeholder="LocationId"></td>
-      <td><input #added placeholder="Added" type="datetime"></td>
-      <td><input #start placeholder="Start" type="datetime"></td>
-      <td><input #end placeholder="End" type="datetime"></td>
-      <td><input #state placeholder="State"></td>
-      <td colspan="3" style="text-align:center;"><button class="btn btn-info" (click)="save(userId.value, locationId.value, added.value, start.value, end.value, state.value)">Save</button></td>
-      <td></td>
-    </tr>
-
-
-  </tbody>
-</table>
+  </div>
+  </div>
