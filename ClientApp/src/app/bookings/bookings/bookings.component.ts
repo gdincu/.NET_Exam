@@ -4,6 +4,7 @@ import { Booking } from '../../_shared/booking.model';
 import { BookingService } from '../../_services/booking.service';
 import { Location } from '@angular/common';
 import { Router } from '@angular/router';
+import { AlertifyService } from '../../_services/alertify.service';
 
 @Component({
   selector: 'app-bookings',
@@ -13,7 +14,11 @@ import { Router } from '@angular/router';
 
 export class BookingsComponent implements OnInit {
   errorMessage: string;
-  bookings: Array<Booking>;
+  values: any;
+  updateMode = false;
+  bookingToShow: number;
+  detailsMode = false;
+  bookings: Booking[];
   selectedBooking: Booking;
   public GET_ALL_URL: string = 'https://localhost:44379/api/bookings';
 
@@ -23,7 +28,26 @@ export class BookingsComponent implements OnInit {
     }, error => console.error(error));
   }*/
 
-  constructor(private http: HttpClient, private bookingService: BookingService, private location: Location, private router: Router) { }
+  constructor(private http: HttpClient, private bookingService: BookingService, private alertify: AlertifyService, private location: Location, private router: Router) { }
+
+
+  updateToggle(booking: Booking) {
+    this.updateMode = true;
+    this.bookingToShow = booking.id;
+  }
+
+  detailsToggle(booking: Booking) {
+    this.detailsMode = true;
+    this.bookingToShow = booking.id;
+  }
+
+  cancelUpdateMode(updateMode: boolean) {
+    this.updateMode = updateMode;
+  }
+
+  cancelDetailsMode(detailsMode: boolean) {
+    this.detailsMode = detailsMode;
+  }
 
   ngOnInit() {
     this.getBookings();
@@ -33,8 +57,11 @@ export class BookingsComponent implements OnInit {
   getBookings() {
     this.bookingService.getBookings()
       .subscribe(
-        bookings => this.bookings = bookings,
-        error => this.errorMessage = error as any
+        bookings => {
+          this.bookings = bookings,
+            this.values = bookings,
+          error => this.errorMessage = error as any
+        }
       );
   }
 
@@ -43,10 +70,10 @@ export class BookingsComponent implements OnInit {
     if (confirm("Are you sure you want to delete booking with id: " + booking.id + "?")) {
       this.bookingService.delete(booking.id)
         .subscribe(_ => {
-          console.log('Booking deleted');
+          this.alertify.error('Booking deleted');
           this.bookings = this.bookings.filter(s => s.id !== booking.id);
         },
-          error => alert('Cannot delete booking - check if it has comments!'));
+          error => this.alertify.error('Cannot delete booking - check if it has comments!'));
     }
   }
 

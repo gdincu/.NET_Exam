@@ -1,46 +1,51 @@
-<p *ngIf="!bookings"><em>Loading Bookings...</em></p>
+<p *ngIf="!values"><em>Loading...</em></p>
 
-<div class="container" *ngFor="let booking of bookings">
-  <h1>Details for Booking {{booking.id}}</h1>
-  <div class="row justify-content-lg-center">
-    <div class="card text-white bg-info col col-sm-3 m-3" style="max-width: 30rem;">
-      <div class="card-body">
-        <p class="card-text">UserId: {{booking.userId}}</p>
-        <p class="card-text">LocationId: {{booking.locationId}}</p>
-        <p class="card-text">Added: {{booking.added}}</p>
-        <p class="card-text">Start: {{booking.start}}</p>
-        <p class="card-text">End: {{booking.end}}</p>
-        <p class="card-text">State: {{booking.state}}</p>
+<br />
+
+<div class="container" *ngFor="let value of values">
+  <div *ngIf="value.id == bookingToShow">
+    <div class="row">
+      <div class="col col-sm-10"><h2>Details for Booking {{value.id}}</h2></div>
+      <button class="col col-sm-2 btn btn-danger" type="button" (click)="cancel()">Cancel</button>
+    </div>
+    <div class="row justify-content-lg-center">
+      <div class="card text-white bg-info col col-sm-11 m-1">
+        <div class="card-body">
+          <p class="card-text">UserId: {{value.userId}}</p>
+          <p class="card-text">LocationId: {{value.locationId}}</p>
+          <p class="card-text">Added: {{value.added}}</p>
+          <p class="card-text">Start: {{value.start}}</p>
+          <p class="card-text">End: {{value.end}}</p>
+          <p class="card-text">State: {{value.state}}</p>
+        </div>
       </div>
     </div>
   </div>
 </div>
 
 <h2>Comments</h2>
-
 <p *ngIf="!comments"><em>Loading Comments...</em></p>
 <div class="container" *ngFor="let comment of comments">
+  <div *ngIf="comment.bookingId == bookingToShow">
+    <div *ngIf="comment.rating == 'Avoid'">
+      <div class="row alert alert-dismissible alert-danger">
+        <div class="col-sm-11"><strong>{{ comment.rating }}</strong> {{ comment.content }}</div>
+        <button class="col-sm-1 btn btn-dark" (click)="delete(comment);$event.stopPropagation()">Delete</button>
+      </div>
+    </div>
 
-  <div *ngIf="comment.rating == 'Avoid'">
-    <div class="row alert alert-dismissible alert-danger">
-      <div class="col-sm-11"><strong>{{ comment.rating }}</strong> {{ comment.content }}</div>
-      <button class="col-sm-1 btn btn-dark" (click)="delete(comment);$event.stopPropagation()">Delete</button>
+    <div *ngIf="comment.rating == 'Good'">
+      <div class="row alert alert-dismissible alert-warning">
+        <div class="col-sm-11"><strong>{{ comment.rating }}</strong> {{ comment.content }}</div>
+        <button class="col-sm-1 btn btn-dark" (click)="delete(comment);$event.stopPropagation()">Delete</button>
+      </div>
+    </div>
+
+    <div *ngIf="comment.rating == 'Great'">
+      <div class="row alert alert-dismissible alert-success">
+        <div class="col-sm-11"><strong>{{ comment.rating }}</strong> {{ comment.content }}</div>
+        <button class="col-sm-1 btn btn-dark" (click)="delete(comment);$event.stopPropagation()">Delete</button>
+      </div>
     </div>
   </div>
-
-  <div *ngIf="comment.rating == 'Good'">
-    <div class="row alert alert-dismissible alert-warning">
-      <div class="col-sm-11"><strong>{{ comment.rating }}</strong> {{ comment.content }}</div>
-      <button class="col-sm-1 btn btn-dark" (click)="delete(comment);$event.stopPropagation()">Delete</button>
-    </div>
-  </div>
-
-  <div *ngIf="comment.rating == 'Great'">
-    <div class="row alert alert-dismissible alert-success">
-      <div class="col-sm-11"><strong>{{ comment.rating }}</strong> {{ comment.content }}</div>
-      <button class="col-sm-1 btn btn-dark" (click)="delete(comment);$event.stopPropagation()">Delete</button>
-    </div>
-  </div>
-
-  
 </div>

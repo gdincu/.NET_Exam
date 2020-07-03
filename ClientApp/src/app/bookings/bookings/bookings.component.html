@@ -1,16 +1,19 @@
-<h1>Bookings Made</h1>
+
 
 <p *ngIf="!bookings"><em>Loading...</em></p>
 
-<div class="container">
+<div class="container" *ngIf="bookings && !updateMode && !detailsMode">
+  <h1>Bookings Made</h1>
   <div class="row justify-content-lg-center">
 
     <div class="card text-white bg-info col col-sm-3 m-3" style="max-width: 30rem;" *ngFor="let booking of bookings">
       <div class="card-header">
         <div class="row">
-          <a class="col btn btn-success .btn-sm" href='/bookings-details?bookingid={{ booking.id }}'>Details</a>
-          <a class="col btn btn-warning .btn-sm" href='/bookings-update?bookingid={{ booking.id }}'>Update</a>
-          <button class="col btn btn-danger .btn-sm" (click)="delete(booking);$event.stopPropagation()">Delete</button>
+          <button class="btn btn-warning btn-sm m-1" (click)="detailsToggle(booking)">Details</button>
+          <button class="btn btn-success btn-sm m-1" (click)="updateToggle(booking)">Update</button>
+          <!--<a class="col btn btn-warning .btn-sm" href='/bookings-update?bookingid=booking.id}}'>Update</a>-->
+          <button class="col btn btn-danger btn-sm m-1" (click)="delete(booking);$event.stopPropagation()">Delete</button>
+
         </div>
       </div>
       <div class="card-body">
@@ -26,4 +29,15 @@
     </div>
 
   </div>
-  </div>
+</div>
+
+<div *ngIf="updateMode" class="container">
+  <app-bookings-update [values]="values" [bookingToShow]="bookingToShow" (cancelUpdate)="cancelUpdateMode($event)"></app-bookings-update>
+</div>
+
+<div *ngIf="detailsMode" class="container">
+  <app-bookings-details [values]="values"  [bookingToShow]="bookingToShow"  (cancelDetails)="cancelDetailsMode($event)"></app-bookings-details>
+</div>
+
+
+
