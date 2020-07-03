@@ -9,6 +9,7 @@ import { Booking } from '../_shared/booking.model';
 
 export class HomeComponent implements OnInit {
   registerMode = false;
+  learnMoreMode = false;
   values: any;
 
   constructor(private http: HttpClient) {}
@@ -17,10 +18,13 @@ export class HomeComponent implements OnInit {
     this.registerMode = true;
   }
 
+  learnMoreToggle() {
+    this.learnMoreMode = true;
+  }
+
   ngOnInit() {
     this.getValues();
   }
-
 
   getValues() {
     this.http.get<Booking[]>('https://localhost:44379/api/bookings').subscribe(response => {
@@ -32,5 +36,9 @@ export class HomeComponent implements OnInit {
 
   cancelRegisterMode(registerMode: boolean) {
     this.registerMode = registerMode;
+  }
+
+  cancelLearnMoreMode(learnMoreMode: boolean) {
+    this.learnMoreMode = learnMoreMode;
   }
 }

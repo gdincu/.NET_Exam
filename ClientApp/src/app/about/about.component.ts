@@ -7,34 +7,24 @@ import { AuthenticationService } from '../_services/auth.service';
 import { AlertifyService } from '../_services/alertify.service';
 
 @Component({
-  selector: 'app-register',
-  templateUrl: './register.component.html'
+  selector: 'app-about',
+  templateUrl: './about.component.html',
+  styleUrls: ['./about.component.css']
 })
-
 @Injectable({
   providedIn: 'root'
 })
-export class RegisterComponent implements OnInit {
-  @Input() valuesFromHome: any;
-  @Output() cancelRegister = new EventEmitter();
+export class AboutComponent implements OnInit {
+  @Output() cancelLearnMore = new EventEmitter();
   model: any = {};
 
   constructor(private http: HttpClient, private authService: AuthenticationService, private alertify: AlertifyService) { }
 
-  register() {
-    this.authService.register(this.model).subscribe(() => {
-      this.alertify.success('Registration worked!!');
-    }, error => {
-        this.alertify.error(error);
-    });
-  }
-
   ngOnInit() {
-    
   }
 
   cancel() {
-    this.cancelRegister.emit(false);
+    this.cancelLearnMore.emit(false);
     this.alertify.error('Cancelled');
   }
 

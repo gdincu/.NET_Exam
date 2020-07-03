@@ -15,23 +15,22 @@ import { RegisterComponent } from './register/register.component';
 import { BookingsComponent } from './bookings/bookings/bookings.component';
 import { BookingsUpdateComponent } from './bookings/bookings-update/bookings-update.component';
 import { BookingsDetailsComponent } from './bookings/bookings-details/bookings-details.component';
+import { BookingService } from './_services/booking.service';
 
 import { UsersComponent } from './users/users/users.component';
 import { UsersDetailsComponent } from './users/users-details/users-details.component';
 import { UsersUpdateComponent } from './users/users-update/users-update.component';
+import { UserService } from './_services/user.service';
 
 import { LocationsComponent } from './locations/locations/locations.component';
 import { LocationsDetailsComponent } from './locations/locations-details/locations-details.component';
 import { LocationsUpdateComponent } from './locations/locations-update/locations-update.component';
+import { LocationService } from './_services/location.service';
 
 import { CommentsComponent } from './comments/comments/comments.component';
-import { CommentsDetailsComponent } from './comments/comments-details/comments-details.component';
 import { CommentsUpdateComponent } from './comments/comments-update/comments-update.component';
-
-import { BookingService } from './_services/booking.service';
-import { UserService } from './_services/user.service';
-import { LocationService } from './_services/location.service';
 import { CommentService } from './_services/comment.service';
+
 import { AuthenticationService } from './_services/auth.service';
 import { ErrorInterceptorProvider } from './_services/error.interceptor';
 import { SocialLoginComponent } from './social-login/social-login.component';
@@ -39,6 +38,7 @@ import { SocialLoginModule, SocialAuthServiceConfig, GoogleLoginProvider } from 
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { ListsComponent } from './lists/lists.component';
 import { MessagesComponent } from './messages/messages.component';
+import { AboutComponent } from './about/about.component';
 
 export function tokenGetter() {
   return localStorage.getItem('token');
@@ -60,12 +60,12 @@ export function tokenGetter() {
     LocationsDetailsComponent,
     LocationsUpdateComponent,
     CommentsComponent,
-    CommentsDetailsComponent,
     CommentsUpdateComponent,
     RegisterComponent,
     SocialLoginComponent,
     ListsComponent,
-    MessagesComponent
+    MessagesComponent,
+    AboutComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -87,7 +87,6 @@ export function tokenGetter() {
       { path: 'locations-details', component: LocationsDetailsComponent },
       { path: 'locations-update', component: LocationsUpdateComponent },
       { path: 'comments', component: CommentsComponent },
-      { path: 'comments-details', component: CommentsDetailsComponent },
       { path: 'comments-update', component: CommentsUpdateComponent },
       { path: 'register', component: RegisterComponent }
     ])

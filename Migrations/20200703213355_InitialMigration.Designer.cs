@@ -10,8 +10,8 @@ using Persistence.Contexts;
 namespace Exam.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20200625200605_ChangedAllModels2")]
-    partial class ChangedAllModels2
+    [Migration("20200703213355_InitialMigration")]
+    partial class InitialMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -114,11 +114,17 @@ namespace Exam.Migrations
                     b.Property<string>("Email")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<bool>("IsAdmin")
+                        .HasColumnType("bit");
+
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Password")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<byte[]>("PasswordHash")
+                        .HasColumnType("varbinary(max)");
+
+                    b.Property<byte[]>("PasswordSalt")
+                        .HasColumnType("varbinary(max)");
 
                     b.Property<string>("Phone")
                         .HasColumnType("nvarchar(max)");

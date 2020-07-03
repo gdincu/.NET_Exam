@@ -1,22 +1,28 @@
-<div class="container mt-5">
-  <div *ngIf="!registerMode" style="text-align: center">
-    <h1>Charge your EV now</h1>
-    <p class="lead">Looking for a charging point... All you need to do is sign up!</p>
-    <div class="text-center">
-      <button class="btn btn-primary btn-lg" (click)="registerToggle()">Register</button>
-      <button class="btn btn-info btn-lg">Learn more</button>
+
+  <div class="container mt-5">
+    <div *ngIf="!registerMode && !learnMoreMode" style="text-align: center">
+      <h1>Charge your EV now</h1>
+      <p class="lead">Looking for a charging point... All you need to do is sign up!</p>
+      <div class="text-center">
+        <button class="btn btn-primary btn-lg m-2" (click)="registerToggle()">Register</button>
+        <button class="btn btn-info btn-lg m-2" (click)="learnMoreToggle()">Learn more</button>
+      </div>
     </div>
-  </div>
 
-  <div class="container">
-    <div class="row justify-content-center">
-      <div class="col-4">
+    <div class="container">
+      <div class="row justify-content-center">
+        <div>
 
-        <div *ngIf="registerMode" class="container">
-          <app-register [valuesFromHome]="values" (cancelRegister)="cancelRegisterMode($event)"></app-register>
+          <div *ngIf="registerMode" class="container col-12">
+            <app-register [valuesFromHome]="values" (cancelRegister)="cancelRegisterMode($event)"></app-register>
+          </div>
+
+          <div *ngIf="learnMoreMode" class="container col-12">
+            <app-about (cancelLearnMore)="cancelLearnMoreMode($event)"></app-about>
+          </div>
+
         </div>
-
-  </div>
+      </div>
     </div>
   </div>
-</div>
+

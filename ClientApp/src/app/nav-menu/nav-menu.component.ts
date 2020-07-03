@@ -24,7 +24,7 @@ export class NavMenuComponent implements OnInit {
     this.authService.login(this.model).subscribe(next => {
       this.alertify.success('Logged in successfully!');
     }, error => {
-      this.alertify.error('Failed to log in!');
+        this.alertify.error('Failed to log in!');
     });
   }
 
