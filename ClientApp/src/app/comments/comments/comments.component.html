@@ -6,6 +6,8 @@
   <h1>List of Comments: </h1>
   <div class="row container-fluid">
 
+
+
     <div class="col col-sm-2 m-3" *ngFor="let comment of comments">
       <div class="card-header">
         <div class="row">
@@ -25,8 +27,8 @@
         <div class="row alert alert-dismissible alert-warning">
           <div class="col-sm-11"><strong>{{ comment.rating }} -- {{ comment.author }}</strong> {{ comment.content }}</div>
           <div class="col-sm-11">{{ comment.added }}</div>
-          </div>
         </div>
+      </div>
 
       <div *ngIf="comment.rating == 'Great'">
         <div class="row alert alert-dismissible alert-success">
@@ -37,12 +39,16 @@
       </div>
 
     </div>
-</div>
   </div>
+</div>
+
+<app-add-comment></app-add-comment>
 
 <div *ngIf="updateMode" class="container">
   <app-comments-update [values]="values" [commentToShow]="commentToShow" (cancelUpdate)="cancelUpdateMode($event)"></app-comments-update>
 </div>
+
+
 
 
 

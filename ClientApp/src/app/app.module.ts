@@ -37,6 +37,7 @@ import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { ListsComponent } from './lists/lists.component';
 import { MessagesComponent } from './messages/messages.component';
 import { AboutComponent } from './about/about.component';
+import { AddCommentComponent } from './add-comment/add-comment.component';
 
 export function tokenGetter() {
   return localStorage.getItem('token');
@@ -61,7 +62,8 @@ export function tokenGetter() {
     SocialLoginComponent,
     ListsComponent,
     MessagesComponent,
-    AboutComponent
+    AboutComponent,
+    AddCommentComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),

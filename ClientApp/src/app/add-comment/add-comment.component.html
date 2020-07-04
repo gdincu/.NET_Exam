@@ -1,0 +1,9 @@
+<div class="row alert alert-dismissible alert-success">
+  <form>
+    <input type="text" class="form-control-plaintext" name="Added" [(ngModel)]="value.added" placeholder="Added">
+    <input type="text" class="form-control-plaintext" name="Content" [(ngModel)]="value.content" placeholder="Content">
+    <input type="text" class="form-control-plaintext" name="Rating" [(ngModel)]="value.rating" placeholder="Rating">
+    <input type="number" class="form-control-plaintext" name="BookingId" [(ngModel)]="value.bookingId" placeholder="BookingId">
+    <button type="submit" (click)="save(value)" class="btn btn-primary">Add Comment</button>
+  </form>
+</div>
