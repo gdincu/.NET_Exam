@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
-import { Location } from '../_shared/location.model';
+import { _Location } from '../_shared/location.model';
 import { map } from "rxjs/operators";
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
@@ -11,27 +11,27 @@ import 'rxjs/Rx';
 export class LocationService {
   private url = 'https://localhost:44379/api/locations';
 
-  locations: Array<Location>;
+  locations: Array<_Location >;
 
   constructor(private http: HttpClient) { }
 
-  getLocations(): Observable<Location[]> {
+  getLocations(): Observable<_Location []> {
     return this.http
-      .get<Array<Location>>(this.url);
+      .get<Array<_Location >>(this.url);
   }
 
-  getLocation(id: number): Observable<Location[]> {
+  getLocation(id: number): Observable<_Location []> {
     return this.getLocations()
       .map(locations => locations.filter(location => location.id === id));
   }
 
-  update(location): Observable<Location> {
+  update(location): Observable<_Location > {
     const url = `${this.url}/${location.id}`;
     return this.http
-      .put<Location>(url, location);
+      .put<_Location >(url, location);
   }
 
-  public save(location: Location) {
+  public save(location: _Location ) {
     this.http.post(this.url, location).subscribe(_ => window.location.reload());
   }
 

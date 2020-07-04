@@ -18,7 +18,6 @@ import { BookingsDetailsComponent } from './bookings/bookings-details/bookings-d
 import { BookingService } from './_services/booking.service';
 
 import { UsersComponent } from './users/users/users.component';
-import { UsersDetailsComponent } from './users/users-details/users-details.component';
 import { UsersUpdateComponent } from './users/users-update/users-update.component';
 import { UserService } from './_services/user.service';
 
@@ -53,7 +52,6 @@ export function tokenGetter() {
     BookingsUpdateComponent,
     BookingsDetailsComponent,
     UsersComponent,
-    UsersDetailsComponent,
     UsersUpdateComponent,
     LocationsComponent,
     LocationsUpdateComponent,
@@ -79,7 +77,6 @@ export function tokenGetter() {
       { path: 'bookings-details', component: BookingsDetailsComponent },
       { path: 'bookings-update', component: BookingsUpdateComponent },
       { path: 'users', component: UsersComponent },
-      { path: 'users-details', component: UsersDetailsComponent },
       { path: 'users-update', component: UsersUpdateComponent },
       { path: 'locations', component: LocationsComponent },
       { path: 'locations-update', component: LocationsUpdateComponent },

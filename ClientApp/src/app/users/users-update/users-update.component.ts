@@ -1,11 +1,10 @@
 import { Component, OnInit, Input, Injectable, Output, EventEmitter, Inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Booking } from '../../_shared/booking.model';
-import { BookingService } from '../../_services/booking.service';
+import { User } from '../../_shared/user.model';
+import { UserService } from '../../_services/user.service';
 import { Location } from '@angular/common';
 import { ActivatedRoute, Params, Data } from "@angular/router";
 import { DOCUMENT } from '@angular/common';
-import { Comment } from '../../_shared/comment.model';
 import { AlertifyService } from '../../_services/alertify.service';
 
 @Component({
@@ -15,48 +14,45 @@ import { AlertifyService } from '../../_services/alertify.service';
 })
 export class UsersUpdateComponent implements OnInit {
 
-  @Input() booking: Booking;
+  @Input() user: User;
   @Input() values: any;
-  @Input() bookingToShow: any;
+  @Input() userToShow: any;
   @Output() cancelUpdate = new EventEmitter();
   model: any = {};
 
   constructor(
     @Inject(DOCUMENT) private document: Document,
-    private bookingService: BookingService,
+    private userService: UserService,
     private route: ActivatedRoute,
     private http: HttpClient,
     private alertify: AlertifyService,
     private location: Location) { }
 
   ngOnInit() {
-    this.getComments();
-    /*this.route.params
-      .switchMap((params: Params) => this.bookingService.getBooking(+params['id']))
-      .subscribe(booking => this.booking = booking);*/
+    console.log(this.values);
+    console.log(this.userToShow);
   }
 
   public url = new URL(this.document.location.href);
-  public bookings: Booking[];
-  public comments: Comment[];
-  public GET_ALL_COMMENTS_URL: string = 'https://localhost:44379/api/comments';
+  public users: User[];
+  public GET_ALL_USERS_URL: string = 'https://localhost:44379/api/users';
 
-  getComments(): void {
-    this.http.get<Comment[]>(this.GET_ALL_COMMENTS_URL)
-      .subscribe(comments => this.comments = comments.filter(x => x.bookingId == this.bookingToShow));
+  getUsers(): void {
+    this.http.get<User[]>(this.GET_ALL_USERS_URL)
+      .subscribe(users => this.users = users.filter(x => x.id == this.userToShow));
   }
 
-  save(booking: Booking): void {
-    if (this.bookingService.update(booking)
+  save(user: User): void {
+    if (this.userService.updateUser(user.id,user)
       .subscribe())
-      this.alertify.success('Booking updated!');
+      this.alertify.success('User updated!');
     else
-      this.alertify.error('Failed to update booking!');
+      this.alertify.error('Failed to update user!');
   }
 
   cancel() {
     this.cancelUpdate.emit(false);
-    this.alertify.error('Cancelled');
+    this.alertify.success('User List');
   }
 
 }

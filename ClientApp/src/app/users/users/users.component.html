@@ -1,47 +1,37 @@
 
 
-<p *ngIf="!comments"><em>Loading...</em></p>
+<p *ngIf="!users"><em>Loading...</em></p>
 
-<div class="container" *ngIf="comments && !updateMode && !detailsMode">
-  <h1>List of Comments: </h1>
+<div class="container" *ngIf="users && !updateMode">
+  <h1>List of Users: </h1>
   <div class="row container-fluid">
 
-    <div class="col col-sm-2 m-3" *ngFor="let comment of comments">
+    <div class="col col-sm-5 m-3" *ngFor="let user of users">
+
       <div class="card-header">
         <div class="row">
-          <button class="btn btn-success btn-sm m-1" (click)="updateToggle(comment)">Update</button>
-          <button class="col btn btn-danger btn-sm m-1" (click)="delete(comment);$event.stopPropagation()">Delete</button>
+          <button class="btn btn-success btn-sm m-1" (click)="updateToggle(user)">Update</button>
+          <button class="btn btn-danger btn-sm m-1" (click)="delete(user);$event.stopPropagation()">Delete</button>
         </div>
       </div>
 
-      <div *ngIf="comment.rating == 'Avoid'">
-        <div class="row alert alert-dismissible alert-danger">
-          <div class="col-sm-11"><strong>{{ comment.rating }} -- {{ comment.author }}</strong> {{ comment.content }}</div>
-          <div class="col-sm-11">{{ comment.added }}</div>
+      <div class="card text-white bg-warning mb-3">
+        <div class="card-header">{{ user.username }}</div>
+        <div class="card-body">
+          <h4 class="card-title">{{ user.name }} {{user.surname}}</h4>
+          <p class="card-text">Phone: {{ user.phone }}</p>
+          <p class="card-text">Phone: {{ user.email }}</p>
+          <p class="card-text">Phone: {{ user.isAdmin }}</p>
         </div>
-      </div>
-
-      <div *ngIf="comment.rating == 'Good'">
-        <div class="row alert alert-dismissible alert-warning">
-          <div class="col-sm-11"><strong>{{ comment.rating }} -- {{ comment.author }}</strong> {{ comment.content }}</div>
-          <div class="col-sm-11">{{ comment.added }}</div>
-        </div>
-      </div>
-
-      <div *ngIf="comment.rating == 'Great'">
-        <div class="row alert alert-dismissible alert-success">
-          <div class="col-sm-11"><strong>{{ comment.rating }} -- {{ comment.author }}</strong> {{ comment.content }}</div>
-          <div class="col-sm-11">{{ comment.added }}</div>
-        </div>
-
       </div>
 
     </div>
+
+    </div>
   </div>
-</div>
 
 <div *ngIf="updateMode" class="container">
-  <app-comments-update [values]="values" [commentToShow]="commentToShow" (cancelUpdate)="cancelUpdateMode($event)"></app-comments-update>
+  <app-users-update [values]="values" [userToShow]="userToShow" (cancelUpdate)="cancelUpdateMode($event)"></app-users-update>
 </div>
 
 
