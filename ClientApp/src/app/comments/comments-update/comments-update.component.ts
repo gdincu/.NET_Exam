@@ -52,7 +52,7 @@ export class CommentsUpdateComponent implements OnInit {
 
   cancel() {
     this.cancelUpdate.emit(false);
-    this.alertify.error('Cancelled');
+    this.alertify.success('Comment List');
   }
 
 }

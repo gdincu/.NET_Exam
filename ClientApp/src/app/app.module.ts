@@ -23,7 +23,6 @@ import { UsersUpdateComponent } from './users/users-update/users-update.componen
 import { UserService } from './_services/user.service';
 
 import { LocationsComponent } from './locations/locations/locations.component';
-import { LocationsDetailsComponent } from './locations/locations-details/locations-details.component';
 import { LocationsUpdateComponent } from './locations/locations-update/locations-update.component';
 import { LocationService } from './_services/location.service';
 
@@ -57,7 +56,6 @@ export function tokenGetter() {
     UsersDetailsComponent,
     UsersUpdateComponent,
     LocationsComponent,
-    LocationsDetailsComponent,
     LocationsUpdateComponent,
     CommentsComponent,
     CommentsUpdateComponent,
@@ -84,7 +82,6 @@ export function tokenGetter() {
       { path: 'users-details', component: UsersDetailsComponent },
       { path: 'users-update', component: UsersUpdateComponent },
       { path: 'locations', component: LocationsComponent },
-      { path: 'locations-details', component: LocationsDetailsComponent },
       { path: 'locations-update', component: LocationsUpdateComponent },
       { path: 'comments', component: CommentsComponent },
       { path: 'comments-update', component: CommentsUpdateComponent },

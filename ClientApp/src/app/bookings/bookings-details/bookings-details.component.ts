@@ -50,7 +50,7 @@ export class BookingsDetailsComponent implements OnInit {
 
   cancel() {
     this.cancelDetails.emit(false);
-    this.alertify.error('Cancelled');
+    this.alertify.success('Booking List page');
   }
 
 }

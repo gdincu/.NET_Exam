@@ -1,1 +1,85 @@
-<p>locations works!</p>
+
+
+<p *ngIf="!locations"><em>Loading...</em></p>
+
+<div class="container" *ngIf="locations && !updateMode && !detailsMode">
+  <h1>List of Locations: </h1>
+  <div class="row container-fluid">
+
+    <div class="col col-sm-5 m-1" *ngFor="let location of locations">
+
+      <div class="card-header">
+        <div class="row">
+          <button class="btn btn-success btn-sm m-1" (click)="updateToggle(location)">Update</button>
+          <button class="btn btn-danger btn-sm m-1" (click)="delete(location);$event.stopPropagation()">Delete</button>
+        </div>
+      </div>
+
+      <div *ngIf="location.name == 'Buckingham Palace'">
+        <div class="row alert alert-dismissible alert-info">
+          <div class="col-sm-11"><strong>{{ location.id}} -- {{ location.name }}</strong></div>
+          <div>{{ location.description }}</div>
+          <div class="mapouter">
+            <div class="gmap_canvas"><iframe width="200" height="200" id="gmap_canvas" src="https://maps.google.com/maps?q=buckingham%20palace&t=&z=13&ie=UTF8&iwloc=&output=embed" frameborder="0" scrolling="no" marginheight="0" marginwidth="0"></iframe><a href="https://2torrentz.net">torrentz</a></div>
+            <style>
+              .mapouter {
+                position: relative;
+                text-align: right;
+                height: 200px;
+                width: 200px;
+              }
+
+              .gmap_canvas {
+                overflow: hidden;
+                background: none !important;
+                height: 200px;
+                width: 200px;
+              }
+            </style>
+          </div>
+        </div>
+      </div>
+
+      <div *ngIf="location.name == 'Taj Mahal'">
+        <div class="row alert alert-dismissible alert-info">
+          <div class="col-sm-11"><strong>{{ location.id}} -- {{ location.name }}</strong></div>
+          <div>{{ location.description }}</div>
+          <div class="mapouter">
+            <div class="gmap_canvas"><iframe width="200" height="200" id="gmap_canvas" src="https://maps.google.com/maps?q=taj%20mahal%2C%20india&t=&z=13&ie=UTF8&iwloc=&output=embed" frameborder="0" scrolling="no" marginheight="0" marginwidth="0"></iframe><a href="https://2torrentz.net">torrentz</a></div>
+            <style>
+              .mapouter {
+                position: relative;
+                text-align: right;
+                height: 200px;
+                width: 200px;
+              }
+
+              .gmap_canvas {
+                overflow: hidden;
+                background: none !important;
+                height: 200px;
+                width: 200px;
+              }
+            </style>
+          </div>
+        </div>
+      </div>
+
+      <div *ngIf="location.name != 'Buckingham Palace' && location.name != 'Taj Mahal'">
+        <div class="row alert alert-dismissible alert-info">
+          <div class="col-sm-11"><strong>{{ location.id}} -- {{ location.name }}</strong></div>
+          <div>{{ location.description }}</div>
+        </div>
+      </div>
+
+
+        </div>
+      </div>
+    </div>
+
+<div *ngIf="updateMode" class="container">
+  <app-locations-update [values]="values" [locationToShow]="locationToShow" (cancelUpdate)="cancelUpdateMode($event)"></app-locations-update>
+</div>
+
+
+

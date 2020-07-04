@@ -1,1 +1,48 @@
-<p>users works!</p>
+
+
+<p *ngIf="!comments"><em>Loading...</em></p>
+
+<div class="container" *ngIf="comments && !updateMode && !detailsMode">
+  <h1>List of Comments: </h1>
+  <div class="row container-fluid">
+
+    <div class="col col-sm-2 m-3" *ngFor="let comment of comments">
+      <div class="card-header">
+        <div class="row">
+          <button class="btn btn-success btn-sm m-1" (click)="updateToggle(comment)">Update</button>
+          <button class="col btn btn-danger btn-sm m-1" (click)="delete(comment);$event.stopPropagation()">Delete</button>
+        </div>
+      </div>
+
+      <div *ngIf="comment.rating == 'Avoid'">
+        <div class="row alert alert-dismissible alert-danger">
+          <div class="col-sm-11"><strong>{{ comment.rating }} -- {{ comment.author }}</strong> {{ comment.content }}</div>
+          <div class="col-sm-11">{{ comment.added }}</div>
+        </div>
+      </div>
+
+      <div *ngIf="comment.rating == 'Good'">
+        <div class="row alert alert-dismissible alert-warning">
+          <div class="col-sm-11"><strong>{{ comment.rating }} -- {{ comment.author }}</strong> {{ comment.content }}</div>
+          <div class="col-sm-11">{{ comment.added }}</div>
+        </div>
+      </div>
+
+      <div *ngIf="comment.rating == 'Great'">
+        <div class="row alert alert-dismissible alert-success">
+          <div class="col-sm-11"><strong>{{ comment.rating }} -- {{ comment.author }}</strong> {{ comment.content }}</div>
+          <div class="col-sm-11">{{ comment.added }}</div>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<div *ngIf="updateMode" class="container">
+  <app-comments-update [values]="values" [commentToShow]="commentToShow" (cancelUpdate)="cancelUpdateMode($event)"></app-comments-update>
+</div>
+
+
+
