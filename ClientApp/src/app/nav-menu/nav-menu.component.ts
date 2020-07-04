@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AuthenticationService  } from '../_services/auth.service';
 import { AlertifyService } from '../_services/alertify.service';
 import { SocialAuthService, SocialUser } from 'angularx-social-login';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-nav-menu',
@@ -17,7 +18,8 @@ export class NavMenuComponent implements OnInit {
   constructor(
     public authService: AuthenticationService,
     private alertify: AlertifyService,
-    private socialAuthService: SocialAuthService) { }
+    private socialAuthService: SocialAuthService,
+    private router: Router) { }
 
 
   login() {
@@ -43,7 +45,10 @@ export class NavMenuComponent implements OnInit {
 
   logout() {
     localStorage.removeItem('token');
-    //this.socialAuthService.signOut();
+    localStorage.removeItem('user');
+    this.authService.decodedToken = null;
+    this.authService.currentUser = null;
+    this.socialAuthService.signOut();
     this.alertify.message('Logged out!');
   }
 

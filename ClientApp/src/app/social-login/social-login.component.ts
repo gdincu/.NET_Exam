@@ -24,7 +24,8 @@ export class SocialLoginComponent implements OnInit {
     private socialAuthService: SocialAuthService,
     private authService: AuthenticationService,
     private alertify: AlertifyService,
-    private http: HttpClient
+    private http: HttpClient,
+    private router: Router
   ) { }
 
   //Checks if a Google user is already logged in
@@ -46,17 +47,23 @@ export class SocialLoginComponent implements OnInit {
     }
     else
       this.alertify.error('Try again!!');
-
-
-    //this.decodedToken = this.jwtHelper.decodeToken(this.user.authToken);
-    //console.log(this.decodedToken);
   }
-
-
-
 
   signOut(): void {
     this.socialAuthService.signOut();
   }
 
 }
+
+  /*signInWithGoogle(): void {
+    this.socialAuthService.signIn(GoogleLoginProvider.PROVIDER_ID).finally(() => {
+      this.authService.loginGoogle(this.user.idToken).subscribe(_ => {
+        this.alertify.success('Logged in successfully');
+      }, error => {
+        this.alertify.error(error);
+      }, () => {
+        const user: User = JSON.parse(localStorage.getItem('user'));
+        this.router.navigate(['bookings']);
+      }) 
+      });
+  } */

@@ -25,7 +25,7 @@ export class AboutComponent implements OnInit {
 
   cancel() {
     this.cancelLearnMore.emit(false);
-    this.alertify.error('Cancelled');
+    this.alertify.warning('Home page');
   }
 
 }

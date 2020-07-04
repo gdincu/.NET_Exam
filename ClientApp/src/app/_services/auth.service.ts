@@ -17,6 +17,7 @@ export class AuthenticationService  {
   jwtHelper = new JwtHelperService();
   decodedToken: any;
   currentUser: User;
+  model: any;
 
   constructor(private http: HttpClient) { }
 
@@ -58,22 +59,8 @@ export class AuthenticationService  {
     return isMatch;
   }
 
-  /*loginGoogle(idToken: string) {
-    return this.http.post(this.baseUrl + 'login', model)
-      .pipe(
-        map((response: any) => {
-          const user = response;
-          if (user) {
-            localStorage.setItem('token', user.token);
-            this.decodedToken = this.jwtHelper.decodeToken(user.token);
-            console.log(this.decodedToken);
-          }
-        })
-      );
-      */
-
-    /*
-    return this.http.get('https://localhost:44379/api/users/' + idToken, {})
+  loginGoogle(idToken: string) {
+    return this.http.post('https://localhost:44379/api/auth/login/' + idToken, {})
       .pipe(
         map((response: any) => {
           const user = response;
@@ -84,6 +71,7 @@ export class AuthenticationService  {
             this.currentUser = user.user;
           }
         })
-    );
-    */
+      );
   }
+}    
+  

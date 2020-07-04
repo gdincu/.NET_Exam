@@ -12,7 +12,15 @@ using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using Microsoft.Extensions.Configuration;
 using System.IdentityModel.Tokens.Jwt;
+using AutoMapper;
+using Google.Apis.Auth;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace Exam.Controllers
 {
@@ -23,6 +31,9 @@ namespace Exam.Controllers
     {
         private readonly IAuthRepository _repo;
         private readonly IConfiguration _config;
+        private readonly IMapper _mapper;
+        private readonly UserManager<User> _userManager;
+        private readonly SignInManager<User> _signInManager;
 
         public AuthController(IAuthRepository repo, IConfiguration config)
         {
@@ -88,6 +99,82 @@ namespace Exam.Controllers
             {
                 token = tokenHandler.WriteToken(token)
             });
+        }
+
+        [HttpPost("loginGoogle/{idToken}")]
+        public async Task<IActionResult> LoginGoogle(string idToken)
+        {
+
+            var validPayload = await GoogleJsonWebSignature.ValidateAsync(idToken);
+
+            if (validPayload == null)
+            {
+                return Unauthorized();
+            }
+
+            var clientId = _config.GetValue<String>("Google:ClientId");
+
+            if (!validPayload.Audience.Equals(clientId))
+            {
+                return Unauthorized();
+            }
+
+            var user = await _userManager.FindByNameAsync(validPayload.Email);
+
+            if (user == null)
+            {
+                user = new User
+                {
+                    Username = validPayload.Name,
+                    Name = validPayload.Name,
+                    Surname = validPayload.FamilyName,
+                    Email = validPayload.Email
+                };
+
+                var result = await _userManager.CreateAsync(user);
+                _userManager.AddToRoleAsync(user, "Member").Wait();
+
+                if (!result.Succeeded)
+                {
+                    return BadRequest(result.Errors);
+                }
+            }
+
+
+            var appUser = _mapper.Map<UserForListDto>(user);
+
+            return Ok(new
+            {
+                token = await GenerateJwtToken(user),
+                user = appUser
+            });
+        }
+
+        private async Task<string> GenerateJwtToken(User user)
+        {
+            var claims = new List<Claim>
+           {
+                new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
+                new Claim(ClaimTypes.Name, user.Username)
+            };
+
+            var key = new SymmetricSecurityKey(Encoding.UTF8
+                .GetBytes(_config.GetSection("AppSettings:Token").Value));
+
+            var credentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha512Signature);
+
+            var tokenDescriptor = new SecurityTokenDescriptor
+            {
+                Subject = new ClaimsIdentity(claims),
+                Expires = DateTime.Now.AddDays(1),
+                SigningCredentials = credentials
+            };
+
+            var tokenHandler = new JwtSecurityTokenHandler();
+
+            var token = tokenHandler.CreateToken(tokenDescriptor);
+
+            return tokenHandler.WriteToken(token);
         }
     }
 }
