@@ -18,15 +18,14 @@ export class AddCommentComponent implements OnInit {
   ngOnInit() {
   }
 
-  save(added, content, rating, bookingId) {
+  save(content, rating, bookingId) {
 
     var tempComment = new Comment();
-    tempComment.added = added;
     tempComment.content = content;
     tempComment.rating = rating;
-    tempComment.bookingId = bookingId;
-
-    this.commentService.save(tempComment);
+    tempComment.bookingId = Number(bookingId);
+    
+    
     this.alertify.warning('Comment added');
 
   }
